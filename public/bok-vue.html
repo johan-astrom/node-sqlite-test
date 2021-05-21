@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue - Introduktion</title>
+</head>
+<body>
+<div id="root">
+    <ul>
+        <li v-for="book in books">{{ book.bokTitel }} {{ book.bokForfattare }}</li>
+    </ul>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#root',
+        data: {
+            books: []
+        },
+        mounted(){
+            fetch('http://127.0.0.1:3000/api/bok/')
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data.bok);
+                    this.books = data.bok;
+                });
+        }
+    })
+
+    /*
+    Tutorial:
+    https://laracasts.com/series/learn-vue-2-step-by-step/episodes/3
+    https://laracasts.com/series/learn-vue-2-step-by-step/episodes/4
+     */
+</script>
+</body>
+</html>
